@@ -15,7 +15,7 @@ export default function Document() {
           rel="stylesheet"
         />
       </Head>
-      <body className="h-screen bg-image">
+      <body className="bg-[#242754]">
         <Main />
         <NextScript />
       </body>
