@@ -15,30 +15,16 @@ const contractABI = abi.abi;
 const MintNFT = async (poolAddress) => {
   const connector = new CoinbaseWalletConnector({
     options: {
-      appName: "Wooy POD's",
+      appName: "Wooy",
       jsonRpcUrl: "https://alfajores-forno.celo-testnet.org",
     },
   });
 
-  console.log(connector);
-  const provider = new ethers.providers.JsonRpcProvider(connector);
-  const signer = provider.getSigner();
-  // const contract = useContract({
-  //   addressOrName: contractAddress,
-  //   contractInterface: contractABI,
-  //   signerOrProvider: signer,
-  // });
+  const signer = await connector.getSigner();
 
   const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
-  // await signer.sendTransaction({
-  //   to: contractAddress,
-  //   data: contract.safeMint("0x0A9BA873f546855Af26e27Fd49036359E133fEB7"),
-  // });
-
-  const tx = await contract.safeMint(
-    "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
-  );
+  const tx = await contract.safeMint(poolAddress);
 
   const txre = tx.wait();
 
@@ -46,8 +32,6 @@ const MintNFT = async (poolAddress) => {
 };
 
 export const NFTCard = () => {
-  MintNFT("0x0A9BA873f546855Af26e27Fd49036359E133fEB7");
-
   const router = useRouter();
 
   const { id } = router.query;
@@ -77,7 +61,7 @@ export const NFTCard = () => {
         <hr className="m-2" />
         <p className="text-teal-500 text-2xl">Please claim your PoD</p>
         <button
-          onClick={() => mintNFT(nftAddresses[id].poolAddress)}
+          onClick={() => MintNFT(nftAddresses[id].poolAddress)}
           className="mt-16 lg:px-16 px-8 py-2 bg-teal-500 rounded-3xl hover:shadow-2xl hover:bg-teal-300 transition-all"
         >
           Mint on Celo
