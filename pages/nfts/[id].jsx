@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 
 import { useRouter } from "next/router";
@@ -27,8 +27,6 @@ const MintNFT = async (poolAddress) => {
   const tx = await contract.safeMint(poolAddress);
 
   const txre = tx.wait();
-
-  console.log(txre);
 };
 
 export const NFTCard = () => {
@@ -55,9 +53,7 @@ export const NFTCard = () => {
         )}
       </div>
       <div className="px-8 py-4 flex flex-col justify-center items-center">
-        <h2 className="text-3xl text-white">
-          We are happy to have you on our community!
-        </h2>
+        <h2 className="text-3xl text-white">Welcome to our community!</h2>
         <hr className="m-2" />
         <p className="text-teal-500 text-2xl">Please claim your PoD</p>
         <button
