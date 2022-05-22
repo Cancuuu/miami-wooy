@@ -7,7 +7,7 @@ import abi from "../../utils/abi.json";
 
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 
-import { useContract, useSendTransaction, useConnect, useSigner } from "wagmi";
+import { useContract } from "wagmi";
 
 const contractAddress = "0x0a284F6035C60Ad35256e32E37349E6714c98d25";
 const contractABI = abi.abi;
@@ -20,23 +20,29 @@ const MintNFT = async (poolAddress) => {
     },
   });
 
+  console.log(connector);
   const provider = new ethers.providers.JsonRpcProvider(connector);
-
   const signer = provider.getSigner();
+  // const contract = useContract({
+  //   addressOrName: contractAddress,
+  //   contractInterface: contractABI,
+  //   signerOrProvider: signer,
+  // });
 
-  console.log(signer);
+  const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
-  const contract = useContract({
-    addressOrName: contractAddress,
-    contractInterface: contractABI,
-    signerOrProvider: signer,
-  });
+  // await signer.sendTransaction({
+  //   to: contractAddress,
+  //   data: contract.safeMint("0x0A9BA873f546855Af26e27Fd49036359E133fEB7"),
+  // });
 
-  console.log(contract);
+  const tx = await contract.safeMint(
+    "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"
+  );
 
-  const tx = await contract.safeMint(poolAddress);
+  const txre = tx.wait();
 
-  console.log(tx);
+  console.log(txre);
 };
 
 export const NFTCard = () => {
