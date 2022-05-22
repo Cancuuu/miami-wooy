@@ -49,7 +49,7 @@ const alfajoresCeloChain = {
 };
 
 const { chains, provider } = configureChains(
-  [chain.polygon, celoChain, alfajoresCeloChain],
+  [celoChain, alfajoresCeloChain],
   [apiProvider.alchemy(process.env.ALCHEMY_ID), apiProvider.fallback()]
 );
 

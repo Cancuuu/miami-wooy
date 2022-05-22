@@ -1,11 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../../components/Layout";
 
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
+import abi from "../../utils/abi.json";
+
+import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
+
+import { useContract, useSendTransaction, useConnect, useSigner } from "wagmi";
+
+const contractAddress = "0x0a284F6035C60Ad35256e32E37349E6714c98d25";
+const contractABI = abi.abi;
+
+const MintNFT = async (poolAddress) => {
+  const connector = new CoinbaseWalletConnector({
+    options: {
+      appName: "Wooy POD's",
+      jsonRpcUrl: "https://alfajores-forno.celo-testnet.org",
+    },
+  });
+
+  const provider = new ethers.providers.JsonRpcProvider(connector);
+
+  const signer = provider.getSigner();
+
+  console.log(signer);
+
+  const contract = useContract({
+    addressOrName: contractAddress,
+    contractInterface: contractABI,
+    signerOrProvider: signer,
+  });
+
+  console.log(contract);
+
+  const tx = await contract.safeMint(poolAddress);
+
+  console.log(tx);
+};
 
 export const NFTCard = () => {
-  const nftContract = new web3.eth.Contract(contract.abi, contractAddress);
+  MintNFT("0x0A9BA873f546855Af26e27Fd49036359E133fEB7");
 
   const router = useRouter();
 
@@ -16,28 +51,8 @@ export const NFTCard = () => {
       poolAddress: "0x0A9BA873f546855Af26e27Fd49036359E133fEB7",
     },
     2: {
-      poolAddress: "",
+      poolAddress: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
     },
-    3: {
-      poolAddress: "",
-    },
-  };
-
-  console.log(id);
-
-  const mintNFT = async (poolAddress) => {
-    const tx = {
-      to: contractAddress,
-      gas: 500000,
-      data: nftContract.methods.safeMint(poolAddress).encodeABI(),
-    };
-
-    // const signedTx = await ethers.signTransaction(tx, PRIVATE_KEY);
-    // const sendedTx = await ethers.sendSignedTransaction(
-    //   signedTx.rawTransaction
-    // );
-
-    console.log(sendedTx);
   };
 
   return (
