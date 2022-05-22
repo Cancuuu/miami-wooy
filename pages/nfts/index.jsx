@@ -1,6 +1,6 @@
 import React from "react";
-import Layout from "../components/Layout";
-import Card from "../components/Card";
+import Layout from "../../components/Layout";
+import Card from "../../components/Card";
 
 const nfts = () => {
   return (
@@ -34,18 +34,23 @@ const nfts = () => {
             title={"Win a ticket"}
             desc={"This will be the best prize of the world"}
             buttonlabel={"Claim PoD"}
+            path="nfts/1"
           />
+
           <Card
             image="/donation2.png"
             title={"Win a ticket"}
             desc={"This will be the best prize of the world"}
             buttonlabel={"Claim PoD"}
+            path="nfts/2"
           />
+
           <Card
             image="/donation3.png"
             title={"Win a ticket"}
             desc={"This will be the best prize of the world"}
             buttonlabel={"Claim PoD"}
+            path="nfts/3"
           />
         </div>
       </div>

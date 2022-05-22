@@ -13,18 +13,21 @@ export default function Home() {
             title={"Win a ticket"}
             desc={"This will be the best prize of the world"}
             buttonlabel={"Enter the pool"}
+            path="/"
           />
           <Card
             image="bored.jpg"
             title={"Win a ticket"}
             desc={"This will be the best prize of the world"}
             buttonlabel={"Enter the pool"}
+            path="/"
           />
           <Card
             image="pool2.jpeg"
             title={"Win a ticket"}
             desc={"This will be the best prize of the world"}
             buttonlabel={"Enter the pool"}
+            path="/"
           />
         </div>
       </div>
